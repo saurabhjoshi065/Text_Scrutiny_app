@@ -1,53 +1,23 @@
-name: Claude Code Review
+name: Claude Code Review Prep
 
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  claude-review:
+  prepare-diff-for-claude:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+      - name: Fetch all branches
+        run: git fetch --all
 
-      - name: Install dependencies
-        run: pip install requests
-
-      - name: Run Claude Code Review
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - name: Generate git diff
         run: |
           DIFF=$(git diff origin/main...HEAD --unified=3 | head -c 10000)
-
-          python - <<EOF
-          import os
-          import requests
-
-          headers = {
-              "x-api-key": os.environ["ANTHROPIC_API_KEY"],
-              "content-type": "application/json",
-              "anthropic-version": "2023-06-01"
-          }
-
-          data = {
-              "model": "claude-3-sonnet-20240229",
-              "max_tokens": 1000,
-              "temperature": 0.3,
-              "messages": [
-                  {
-                      "role": "user",
-                      "content": f"You're a senior developer. Review this git diff:\n\n${DIFF}"
-                  }
-              ]
-          }
-
-          response = requests.post("https://api.anthropic.com/v1/messages", headers=headers, json=data)
-          print("Claude's Review:")
-          print(response.json()["content"][0]["text"])
-          EOF
+          echo "$DIFF" > diff.txt
+          echo "-------------------- COPY THIS INTO CLAUDE --------------------"
+          echo "$DIFF"
+          echo "--------------------------------------------------------------"
