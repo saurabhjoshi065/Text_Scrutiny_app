@@ -1,6 +1,12 @@
-# AngularAssignment
+# Text Scrutiny App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.6.
+A text analysis and scrutiny application built with Angular. This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.6.
+
+## Features
+- User authentication and authorization
+- Text analysis and visualization
+- User profile management
+- Contact and about sections
 
 ## Development server
 

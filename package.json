@@ -1,6 +1,7 @@
 {
-  "name": "angular-assignment",
-  "version": "0.0.0",
+  "name": "text-scrutiny-app",
+  "version": "1.0.0",
+  "description": "A text analysis and scrutiny application built with Angular",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
