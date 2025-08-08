@@ -14,7 +14,7 @@ export class AppComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {}
 
-  title = 'angular-assignment';
+  title = 'Text Scrutiny App';
 
   ngOnInit(): void {
     // console.log(this.LogOut, this.authService.getCurrentUser());
